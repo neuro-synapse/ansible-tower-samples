@@ -1,7 +1,28 @@
-- name: Hello World Sample
-  hosts: all
-  tasks:
-    - name: Hello Message
-      debug:
-        msg: "Hello World!"
+---
+# The playbook creates a new database test and populates data in the database to test the sharding.
 
+- hosts: all
+  
+  gather_facts: no
+  vars:
+	
+  vars_files:
+		- conf/myvarsfile.yml
+  tasks:
+   
+   - name: Download and install the public signing key
+     command: rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+
+   - name: copy the logstash config    
+	 copy: 'src=/configbase/logstash.repo  dest=/etc/yum.repos.d/'
+	 
+   - name: Install Webserver
+	 action: yum name =logstash state=installed
+	 
+   - name: ensure logstash is running
+     service: name=logstash enabled=yes 
+	 
+	 
+	 
+	 
+	 
