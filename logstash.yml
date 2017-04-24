@@ -6,8 +6,7 @@
   gather_facts: no
   vars:
 	
-  vars_files:
-		- conf/myvarsfile.yml
+  
   tasks:
    
    - name: Download and install the public signing key
